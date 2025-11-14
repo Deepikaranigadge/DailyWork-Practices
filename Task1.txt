@@ -35,20 +35,16 @@ Data Types in JavaScript
 
 JavaScript data types are divided into two main categories:
 
-🔹 Primitive (Basic) Data Types
-🔹 Non-Primitive (Reference) Data Types
+1) Primitive (Basic) Data Types
+2) Non-Primitive (Reference) Data Types
 
+What is JavaScript and how does it differ from Java?
 
-You said:
-What is JavaScript and how does it differ from Java? 
-ChatGPT said:
-Let’s break this down clearly 👇
-
-🟨 What is JavaScript?
+What is JavaScript?
 JavaScript (JS) is a high-level, interpreted programming language mainly used to make web pages interactive and dynamic.
 It runs inside the browser (like Chrome, Firefox, Edge) and is a core part of web development, along with HTML and CSS.
 
-⚙️ Key Features of JavaScript:
+Key Features of JavaScript:
 Client-side scripting language (also used on the server side with Node.js).
 
 Interpreted, not compiled — runs directly in browsers.
@@ -59,11 +55,11 @@ Prototype-based — uses prototypes instead of classes (though ES6 introduced cl
 
 Event-driven & asynchronous — uses callbacks, promises, and async/await.
 
-☕ What is Java?
+ What is Java?
 Java is a compiled, object-oriented programming language used for building desktop applications, backend systems, Android apps, and enterprise software.
 It runs on the Java Virtual Machine (JVM).
 
-🔍 Difference Between Java and JavaScript
+Difference Between Java and JavaScript
 Feature	Java	JavaScript
 Type	Object-oriented, compiled language	Scripting, interpreted language
 Execution	Runs on JVM (Java Virtual Machine)	Runs in browser or Node.js
@@ -73,7 +69,7 @@ Use Case	Backend systems, Android apps, desktop software	Web interactivity, fron
 Compilation	Needs compilation before running	Executed line by line by browser
 Performance	Usually faster (compiled)	Slightly slower (interpreted)
 Platform Dependence	“Write once, run anywhere” via JVM	Runs anywhere with a browser
-🧠 Simple Example
+ Simple Example
 JavaScript:
 
 console.log("Hello, JavaScript!");
@@ -84,24 +80,19 @@ public class Hello {
     System.out.println("Hello, Java!");
   }
 }
-✅ In short:
 
 Despite their similar names, Java and JavaScript are completely different languages.
 Java is for general-purpose programming, while JavaScript is mainly for web interactivity.
 
 Would you like me to give a real-world analogy to remember the difference easily?
 
-You said:
 What are the primitive and non-primitive data types in JavaScript?
-ChatGPT said:
-Let’s go step by step 👇
-
-🟨 1. Data Types in JavaScript
+ Data Types in JavaScript
 JavaScript data types are divided into two main categories:
 
-🔹 Primitive (Basic) Data Types
-🔹 Non-Primitive (Reference) Data Types
-🧩 Primitive Data Types
+ Primitive (Basic) Data Types
+ Non-Primitive (Reference) Data Types
+ Primitive Data Types
 Primitive types are basic, immutable (cannot be changed), and store single values.
 There are 7 primitive data types in JavaScript:
 
@@ -152,8 +143,8 @@ Hoisted (moved to the top of the scope) but initialized as undefined.
 
 Example:
 var name = "Deepika";
-var name = "Rani"; // ✅ Re-declaration allowed
-name = "Priya";    // ✅ Re-assignment allowed
+var name = "Rani"; //  Re-declaration allowed
+name = "Priya";    //  Re-assignment allowed
 console.log(name); // "Priya"
 
 
@@ -166,8 +157,8 @@ Hoisted, but not initialized (in temporal dead zone until declared).
 
 Example:
 let city = "Delhi";
-city = "Mumbai"; // ✅ Can update
-// let city = "Pune"; ❌ Cannot re-declare in same scope
+city = "Mumbai"; //  Can update
+// let city = "Pune"; Cannot re-declare in same scope
 
 3) const
 
@@ -178,7 +169,7 @@ Must be initialized when declared.
 
 Example:
 const country = "India";
-// country = "USA"; ❌ Error - cannot reassign
+// country = "USA"; Error - cannot reassign
 
 4) What is hoisting?
 Hoisting is a JavaScript behavior where variable and function declarations are moved (or “hoisted”) to the top of their scope before code execution.
@@ -189,11 +180,11 @@ console.log(a); // undefined
 var a = 10;
 
 Using let or const
-console.log(b); // ❌ ReferenceError
+console.log(b); //  ReferenceError
 let b = 20;
 
 Example: Function Hoisting
-greet(); // ✅ Works
+greet(); // Works
 
 function greet() {
   console.log("Hello!");
@@ -201,10 +192,10 @@ function greet() {
 
 | Type                 | Hoisted?                  | Usable Before Declaration? |
 | -------------------- | ------------------------- | -------------------------- |
-| `var`                | Yes                       | ✅ (value = `undefined`)    |
-| `let` / `const`      | Yes                       | ❌ (TDZ error)              |
-| Function Declaration | Yes (fully)               | ✅ Yes                      |
-| Function Expression  | Partially (variable only) | ❌ No                       |
+| `var`                | Yes                       |  (value = `undefined`)    |
+| `let` / `const`      | Yes                       |  (TDZ error)              |
+| Function Declaration | Yes (fully)               |  Yes                      |
+| Function Expression  | Partially (variable only) |  No                       |
 
 
 5) What is the difference between == and ===?Example 1: Using var
@@ -238,7 +229,7 @@ Example:
 |   Checks            | Value only               | Value + Type            |
 |   Type Conversion   | Yes                      | No                      |
 |   Performance       | Slower (does conversion) | Faster                  |
-|   Example           | `5 == "5"` → ✅ true     | `5 === "5"` → ❌ false |
+|   Example           | `5 == "5"` → true     | `5 === "5"` → false |
 
 
 5) What are truthy and falsy values in JavaScript?
@@ -301,7 +292,7 @@ typeof "Hello";      // "string"
 typeof 42;           // "number"
 typeof true;         // "boolean"
 typeof undefined;    // "undefined"
-typeof null;         // ⚠️ "object"  (this is a known JS bug)
+typeof null;         //  "object"  (this is a known JS bug)
 typeof {name: "Deepika"}; // "object"
 typeof [1, 2, 3];    // "object"  (arrays are objects)
 typeof function() {}; // "function"
@@ -329,19 +320,19 @@ console.log(parseInt("abc")); // NaN
 
 | Method                | Description                     | Example               | Result  |
 | --------------------- | ------------------------------- | --------------------- | ------- |
-| `isNaN(value)`        | Converts to number, then checks | `isNaN("abc")`        | ✅ true  |
-| `Number.isNaN(value)` | Strict check (no conversion)    | `Number.isNaN("abc")` | ❌ false |
-| `NaN === NaN`         | Direct comparison               | `NaN === NaN`         | ❌ false |
+| `isNaN(value)`        | Converts to number, then checks | `isNaN("abc")`        | true  |
+| `Number.isNaN(value)` | Strict check (no conversion)    | `Number.isNaN("abc")` | false |
+| `NaN === NaN`         | Direct comparison               | `NaN === NaN`         | false |
 
 
 9) What is the difference between undefined and null?
 
 | Feature                |   undefined                                               |   null                                      |
 | ---------------------- | --------------------------------------------------------- | ------------------------------------------------------ |
-|   Meaning              | A variable has been **declared but not assigned** a value | A variable has been **explicitly assigned “no value”** |
+|   Meaning              | A variable has been declared but not assigned a value | A variable has been explicitly assigned “no value” |
 |   Type                 | `"undefined"`                                             | `"object"` (this is a historical JavaScript bug)       |
 |   Set by               | JavaScript itself                                         | The programmer (you)                                   |
-|   Use case             | Indicates a **missing or uninitialized value**            | Represents an **empty or intentionally missing value** |
+|   Use case             | Indicates a missing or uninitialized value               | Represents an empty or intentionally missing value   |
 |   Example              | `let a; console.log(a); // undefined`                     | `let b = null; console.log(b); // null`                |
 |   Boolean Conversion   | `Boolean(undefined)` → `false`                            | `Boolean(null)` → `false`                              |
 
@@ -362,9 +353,8 @@ JavaScript automatically changes the type of a value to make the operation possi
 Types of Type Coercion
 
 There are two main types:
-
-Implicit Coercion – done automatically by JavaScript
-Explicit Coercion – done manually by the developer
+1)Implicit Coercion – done automatically by JavaScript
+2)Explicit Coercion – done manually by the developer
 
 Implicit Type Coercion (Automatic)
 This happens when JavaScript automatically converts data types during an operation.
@@ -380,3 +370,4 @@ Example:
 Number("10");   // converts string to number → 10
 String(20);     // converts number to string → "20"
 Boolean(0);     // converts number to boolean → false
+

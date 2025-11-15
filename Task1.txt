@@ -652,3 +652,290 @@ numbers.forEach(function(num) {
 // 6
 // 8
 // 10
+
+21) What is a callback function?
+
+A callback function is a function passed as an argument to another function, and it is executed later when a task is completed.
+
+Example:
+function greet(name, callback) {
+  console.log("Hello " + name);
+  callback(); // calling the callback
+}
+
+function sayBye() {
+  console.log("Goodbye!");
+}
+
+greet("Deepika", sayBye);
+
+Why do we use callbacks?
+To handle asynchronous operations like:
+fetching data from APIs
+reading files
+timers (setTimeout, setInterval)
+event handling (click, submit, etc.)
+
+Async Callback Example:
+setTimeout(function() {
+  console.log("This runs after 2 seconds");
+}, 2000);
+
+
+22) What are arrow functions, and how are they different from normal functions?
+
+Arrow functions were introduced in ES6 and provide a shorter, cleaner way to write functions in JavaScript.
+
+Arrow functions are a compact syntax for writing functions using =>
+Example:
+const add = (a, b) => a + b;
+
+Differences Between Arrow Functions and Normal Functions
+1. Arrow functions do NOT have their own this
+
+Normal functions have their own this value depending on how they are called.
+But arrow functions inherit this from their surrounding (lexical) scope
+
+Example:
+const person = {
+  name: "Deepika",
+  show: function() {
+    setTimeout(() => {
+      console.log(this.name); // arrow inherits 'this'
+    }, 1000);
+  }
+};
+
+person.show(); // Deepika
+
+Arrow functions cannot be used as constructors
+We cannot use arrow functions with new.
+const Person = (name) => {
+  this.name = name;
+};
+
+const p = new Person("Deepika"); // Error
+
+23)What is the value of this inside an arrow function?
+Arrow functions do not have their own this.
+They take the this value from where they are defined.
+
+Example: Using arrow function
+const person = {
+  name: "Deepika",
+  show() {
+    setTimeout(() => {
+      console.log(this.name); 
+    }, 1000);
+  }
+};
+
+person.show(); // Deepika
+
+
+24) What is function currying?
+
+Currying means breaking a function with multiple parameters into smaller functions, 
+each taking one parameter, and returning another function until all parameters are received.
+
+Example:
+Reuse functions (partial application)
+const multiply = a => b => a * b;
+
+const double = multiply(2);
+console.log(double(5)); // 10
+console.log(double(10)); // 20
+
+Useful in functional programming
+Helps create highly reusable, configurable functions
+Avoids repeating code
+
+25) What is the difference between call, apply, and bind?
+
+| Method      | When to Use                                                  | Arguments                       | Executes Immediately?         |
+| ----------- | ------------------------------------------------------------ | ------------------------------- | ----------------------------- |
+|   call()    | Call a function with a specific `this` value                 | Pass arguments   individually   |  Yes                         |
+|   apply()   | Same as call, but when you have arguments in an  array       | Pass arguments   as an array    |  Yes                         |
+|   bind()    | When you want to create a new function    with fixed `this`  | Pass arguments individually     |  No (returns a new function) |
+
+Example:call()
+const person = {
+  name: "Alice",
+};
+
+function greet(age, city) {
+  console.log(`Hello, my name is ${this.name}. I am ${age} years old and live in ${city}.`);
+}
+
+greet.call(person, 30, "New York"); // Output: Hello, my name is Alice. I am 30 years old and live in New York.
+
+Example:apply()
+
+const person = {
+  name: "Deepika"
+};
+function intro(age, city) {
+  console.log(`Name: ${this.name}, Age: ${age}, City: ${city}`);
+}
+intro.apply(person, [25, "Delhi"]);
+Output:Name: Deepika, Age: 25, City: Delhi
+
+
+Example:bind()
+
+const person = {
+  name: "Deepika"
+};
+function intro(age, city) {
+  console.log(`Name: ${this.name}, Age: ${age}, City: ${city}`);
+}
+const newFunc = intro.bind(person, 25, "Delhi");
+newFunc();
+
+Output:Name: Deepika, Age: 25, City: Delhi
+
+26) How do you pass parameters by reference vs value?
+In JavaScript, primitive values are passed by value and objects/arrays/functions are passed by reference.
+
+1. Passed by Value (Copy)
+Primitive data types are passed by value:
+Number
+String
+Boolean
+null
+undefined
+Symbol
+
+This means a copy of the value is passed — changes do NOT affect the original.
+
+Example:
+let a = 10;
+
+function change(x) {
+  x = 20;
+}
+
+change(a);
+console.log(a); // 10 (unchanged)
+
+2.Passed by Reference
+Non-primitive types (objects, arrays, functions) are passed by reference:
+Object
+Array
+Function
+
+This means the memory address is shared — changes DO affect the original.
+Example:
+let obj = { name: "Deepika" };
+
+function change(o) {
+  o.name = "Rani";
+}
+
+change(obj);
+console.log(obj.name); // "Rani"
+
+27) What are default parameters in ES6?
+
+Default parameters in ES6 allow you to set a default value for a function parameter if no argument is passed or if the argument is undefined.
+
+Example:
+function greet(name = "Guest") {
+  console.log("Hello " + name);
+}
+greet();           // Hello Guest
+greet("Deepika");  // Hello Deepika
+
+Multiple Default Parameters
+function intro(name = "Unknown", age = 18) {
+  console.log(name, age);
+}
+intro();            // Unknown 18
+intro("Deepika");   // Deepika 18
+intro("Rani", 22);  // Rani 22
+
+28) What is recursion in JavaScript?
+Recursion is a programming technique where a function calls itself to solve a problem by breaking it down into smaller, 
+identical subproblems.
+
+Two important parts of recursion
+1)Base Case → stops the recursion
+2)Recursive Case → function calls itself
+
+Example:factorial
+function factorial(n) {
+  if (n === 1) return 1;          // Base case
+
+  return n * factorial(n - 1);    // Recursive case
+}
+
+console.log(factorial(5)); // 120
+
+29) What is the difference between function declaration and expression?
+
+1) Function Declaration
+A function declared using the function keyword with a name.
+
+Example:
+function add(a, b) {
+  return a + b;
+}
+
+Key Characteristics:
+Hoisted → can be used before it is defined.
+Name is mandatory.
+Loaded into memory at the start of execution.
+
+Example of hoisting:
+console.log(add(5, 3)); // 8
+
+function add(a, b) {
+  return a + b;
+}
+
+2) Function Expression
+A function assigned to a variable (named or anonymous).
+
+Example:
+const add = function(a, b) {
+  return a + b;
+};
+
+Key Characteristics:
+Not hoisted (only variable is hoisted, value is NOT).
+You cannot call it before the line where it’s defined.
+Can be anonymous or named.
+Useful for callbacks.
+
+Example:
+console.log(add(5, 3)); // Error: add is not a function
+
+const add = function(a, b) {
+  return a + b;
+};
+
+30) What is a generator function?
+A generator function in JavaScript is a special type of function that can pause and resume its execution.
+It is used to produce values one at a time, instead of returning them all at once.
+
+identify a generator function
+A generator function has a * (asterisk) after the function keyword:
+
+function* generatorFunction() {
+  // code
+}
+
+Example:
+function* numbers() {
+  yield 1;
+  yield 2;
+  yield 3;
+}
+
+const gen = numbers();
+
+console.log(gen.next()); // { value: 1, done: false }
+console.log(gen.next()); // { value: 2, done: false }
+console.log(gen.next()); // { value: 3, done: false }
+console.log(gen.next()); // { value: undefined, done: true }
+

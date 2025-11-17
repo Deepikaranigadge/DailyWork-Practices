@@ -1,0 +1,598 @@
+1) What is JavaScript and how does it differ from Java?
+
+JavaScript (JS) is a high-level, interpreted programming language mainly used to make web pages interactive and dynamic.
+It runs inside the browser (like Chrome, Firefox, Edge) and is a core part of web development, along with HTML and CSS.
+
+Java:Java is a strongly typed language and variables must be declared first to use in the program.
+ In Java, the type of a variable is checked at compile-time. 
+ Java applications can run in any virtual machine(JVM) or browser.
+
+JavaScript: JavaScript is a loosely typed language and has a more relaxed syntax and rules.  
+JavaScript code used to run only in the browser, but now it can run on the server via Node.js.
+
+Example of JavaScript:
+console.log("Hello, JavaScript!");
+
+Example of Java:
+public class Hello {
+  public static void main(String[] args) {
+    System.out.println("Hello, Java!");
+  }
+}
+
+2) What are the primitive and non-primitive data types in JavaScript?
+
+Data Types in JavaScript
+JavaScript data types are divided into two main categories:
+i)Primitive Data Types : Only one value can store in primitive data type. and its immutable. 
+means data type cannot be changed after user created.
+Example: object, array etc.
+Object	              { name: "Deepika", age: 22 }	Collection of key–value pairs
+Array	                [1, 2, 3]	                    Ordered list of values
+Function	            function greet(){}	          Block of code designed to perform a task
+
+ii)Non-Primitive Data Types: we can store multiple values in non-primitive data type. and its mutable.
+means data type can be Modified after user created.
+Example: string, number, boolean, null, undefined etc.
+String	        "Hello"	                Represents text data
+Number	        42, 3.14	              Represents both integers and floating-point numbers
+Boolean	        true, false	            Represents logical values
+Undefined	      let x;	                A variable declared but not assigned any value
+Null	          let y = null;	          Represents intentional absence of a value
+Symbol (ES6)	  let id = Symbol("id");	Used for unique identifiers
+
+3) What is the difference between var, let, and const?
+
+i) var
+Introduced in ES5 and earlier.
+Has function scope or global scope if declared outside a function.
+Can be re-declared and updated.
+Hoisted moved to the top of the scope but initialized as undefined.
+Example:
+var name = "Deepika";
+var name = "Rani"; // Re-declaration allowed
+name = "Priya";    // Re-assignment allowed
+console.log(name); // "Priya"
+
+ii)let
+Introduced in ES6 (2015).
+Has block scope (limited to { ... }).
+Can be updated, but not re-declared in the same scope.
+Hoisted, but not initialized (in temporal dead zone until declared).
+Example:
+let city = "Delhi";
+city = "Mumbai"; // Can update
+// let city = "Pune"; Cannot re-declare in same scope
+
+iii) const
+Also introduced in ES6 (2015).
+Has block scope.
+Cannot be re-declared or updated.
+Must be initialized when declared.
+Example:
+const country = "India";
+// country = "USA"; Error - cannot reassign
+
+4) What is hoisting?
+Default behavior of moving all declarations to the top of the current scope 
+Types of hoisting
+1) Function declaration
+2) Function Expression
+3) Arrow function
+Usefull:
+i) allows calling function before they are defined.
+ii) js compiler organized declaration before execution.
+
+Function Hoisting
+Function declarations are fully hoisted.
+greet(); // Works!
+function greet() {
+  console.log("Hello!");
+}
+
+5) What is the difference between == and ===?
+
+i) == (Loose Equality Operator)
+Compares only the values, not the data types.
+If the data types are different, JavaScript automatically converts (coerces) them before comparison.
+Example:
+5 == "5"     // true  (string converted to number)
+0 == false    // true  (false converted to 0)
+null == undefined // true
+
+ii) === (Strict Equality Operator)
+Compares both value and data type.
+No type conversion happens.
+Example:
+5 === "5"     // false  (different types)
+0 === false    // false
+5 === 5        // true
+
+5) What are truthy and falsy values in JavaScript?
+
+Truthy Values: If the number has anything rather than 0 is truthy value whether its positive or negative value.
+Example:
+if ("Hello") console.log("Truthy");      // non-empty string
+if (42) console.log("Truthy");           // number (not 0)
+if ([]) console.log("Truthy");           // empty array
+if ({}) console.log("Truthy");           // empty object
+if ("0") console.log("Truthy");          // string containing zero
+
+Falsy Values: It doesn't have any length is called Falsy value.
+Example:                  
+ false            The Boolean false             
+ 0                Number zero                   
+ -0               Negative zero                 
+ "" or ''         Empty string                  
+ null             Represents no value           
+ undefined        Variable not assigned a value 
+ NaN              Not-a-Number                  
+
+Example:
+if (0) {
+  console.log("Truthy");
+} else {
+  console.log("Falsy");
+}
+// Output: Falsy
+
+7) What is the use of the typeof operator?
+
+The typeof operator is used to find the data type of a value or variable.
+Syntax:
+typeof variableName
+Example:
+typeof "Hello";      // "string"
+typeof 42;           // "number"
+typeof true;         // "boolean"
+typeof undefined;    // "undefined"
+typeof null;         // "object"  (this is a known JS bug)
+typeof {name: "Deepika"}; // "object"
+
+8) What is NaN and how can you check for it?
+
+NaN stands for "Not-a-Number".
+It is a special numeric value that represents the result of an invalid or undefined mathematical operation.
+Example:
+console.log(0 / 0);          // NaN
+console.log("abc" * 5);      // NaN
+console.log(parseInt("abc")); // NaN
+
+9) What is the difference between undefined and null?
+
+undefined                                                 null
+Variable declared but no value assigned.         Intentional absence of an object value.
+typeof : Returns 'undefined'                     typeof : Returns 'object'   
+Primitive data type in JavaScript.               Primitive data type in JavaScript.
+
+Example:                                         Example: 
+let a;                                           let b = null;                                         
+console.log(a);// undefined(no value assigned)   console.log(b); // null (explicitly assigned)
+
+10) What is type coercion in JavaScript?
+
+Type coercion in JavaScript means automatically converting one data type to another when an operation involves different types (like string + number).
+Types of Type Coercion:
+i)Implicit Coercion – when JavaScript automatically converts data types during an operation.
+Example 1: String + Number
+let result = "5" + 2;
+console.log(result); // "52"  → number 2 is converted to string
+
+ii)Explicit Coercion (Manual)– You manually convert one type to another using built-in functions.
+Example:
+Number("10");   // converts string to number → 10
+String(20);     // converts number to string → "20"
+Boolean(0);     // converts number to boolean → false
+
+11)Explain global scope, function scope, and block scope?
+
+i) Global Scope:
+If a variable is declared outside of any function or block, it is in the global scope.
+we can access it anywhere in the program.
+
+Example:
+let a = 10; // global variable
+function test() {
+  console.log(a);  // accessible
+}
+console.log(a);     // accessible
+
+ii) Function Scope:
+Variables declared inside a function are in function scope.
+Only inside the same function.
+You cannot access it outside the function.
+
+Example:
+function demo() {
+  let x = 20;   // function-scoped
+  console.log(x); // accessible
+}
+console.log(x); // error — x is not accessible here
+
+iii) Block Scope
+Variables declared using let or const inside { } (like in if, for, while blocks) have block scope.
+Only inside that block.
+
+Example:
+if (true) {
+  let y = 30;    // block-scoped
+  console.log(y); // accessible
+}
+console.log(y); // error — y is not accessible here
+
+12)How does hoisting work for variables and functions?
+JavaScript moves variable and function declarations to the top of their scope before execution.
+
+1)Hoisting for Function Declarations
+Function declarations are fully hoisted — both the function name and the function body.
+Example:
+sayHello();
+function sayHello() {
+  console.log("Hello!");
+}
+
+2)Hoisting for Function Expressions
+Function expressions are NOT fully hoisted.
+sayHi();  // error
+var sayHi = function() {
+  console.log("Hi!");
+};
+
+3.Hoisting for let and const
+Variables declared with let and const are hoisted BUT stay in the Temporal Dead Zone (TDZ) until the actual line of code is executed.
+
+13) What happens if you use a variable before declaring it?
+
+i)Using a var variable before declaration
+What happens?
+we get undefined (NOT an error).
+Example:
+console.log(a); // undefined
+var a = 10;
+
+ii)Using a let variable before declaration
+What happens?
+we get a ReferenceError.
+Example:
+console.log(b); // ReferenceError
+let b = 20;
+
+iii)Using a const variable before declaration
+What happens?
+we get a ReferenceError (same as let).
+
+14) What is lexical scope?
+Inner functions can access variables of outer functions, but outer functions cannot access inner variables.
+
+In JavaScript:
+Functions are allowed to access variables from
+their own scope
+the scope of the parent function
+and all outer scopes (including global)
+
+Example:
+let a = 10;
+function outer() {
+  let b = 20;
+
+  function inner() {
+    console.log(a); // 10 (global)
+    console.log(b); // 20 (from outer)
+  }
+  inner();
+}
+outer();
+
+15) How do closures work in JavaScript?
+A closure is created when a function remembers and accesses the variables from its outer scope, even after the parent function has finished executing.
+
+Example:
+function outer() {
+  let count = 0;
+
+  function inner() {
+    count++;
+    console.log(count);
+  }
+  return inner;
+}
+
+const fn = outer();  
+fn();  // 1
+fn();  // 2
+fn();  // 3
+
+16)What is the difference between var, let, and const in terms of hoisting?
+
+i)var — Hoisted & Initialized with undefined
+var is hoisted to the top of its scope.
+It is initialized with undefined during the hoisting phase.
+You can access it before its declaration, but its value will be undefined.
+
+ii)let — Hoisted but NOT initialized (TDZ)
+let is hoisted but not initialized.
+Before reaching its declaration line, it stays in the Temporal Dead Zone (TDZ).
+Using it before declaration → ReferenceError.
+
+iii)const — Hoisted but NOT initialized (TDZ + must initialize immediately)
+
+17) What are temporal dead zones (TDZ)?
+The Temporal Dead Zone (TDZ) refers to the period during which a variable is declared but cannot be accessed. 
+This occurs from the start of the block scope until the variable is initialized.
+Why TDZ:
+Because let and const are hoisted but not initialized.
+They remain uninitialized until the execution reaches their declaration line.
+
+18)What are immediately invoked function expressions (IIFEs)?
+
+An Immediately Invoked Function Expression (IIFE)
+It is a function that Executes immediately after it is created.
+i) function defined inside parentheses.
+ii) followed by another set of parentheses() to execute it immediately.
+Example: syntax
+(function(){
+  console.log("Good Morning");
+})();
+
+19)What is a pure function?
+
+A pure function is a function that, given the same input, will always produce the same output and has no side effects. 
+Examples include mathematical functions like add(a, b) which always returns the same sum, or Math.max(). 
+Characteristics of pure functions:
+No side effects: A pure function does not change any variables outside of its own scope.
+Modifying a global variable or an object passed into the function.
+Example:
+function add(a, b) {
+  return a + b;
+}
+add(2, 3); // always 5
+
+20)What is a higher-order function?
+HOF is any function that takes one or more function as argument and return a function
+Example 1: HOF taking a function as an argument
+function greet(name) {
+  return "Hello " + name;
+}
+function processUser(func, user) {
+  return func(user); // func is passed as argument
+}
+console.log(processUser(greet, "Deepika")); // Hello Deepika
+
+Example 2: HOF returning a function
+function multiplyBy(x) {
+  return function (y) {
+    return x * y;
+  };
+}
+
+const double = multiplyBy(2);
+console.log(double(5)); // 10
+
+Built-in Higher-Order Functions in JavaScript
+These all take functions as arguments:
+map() ,filter(), reduce(), forEach(), setTimeout(), setInterval()
+
+Example:// map() is a HoF that takes a function as an argument
+var numbers = [1, 2, 3, 4, 5];
+var squaredNumbers = numbers.map(function(num) {
+  return num * num;
+});
+console.log(squaredNumbers); // Output: [1, 4, 9, 16, 25]
+
+Example:// filter() is a HoF that takes a function as an argument
+var evenNumbers = numbers.filter(function(num) {
+  return num % 2 === 0;
+});
+console.log(evenNumbers); // Output: [2, 4]
+
+// forEach() is a HoF that takes a function as an argument
+numbers.forEach(function(num) {
+  console.log(num * 2); // Performs an action for each element
+});
+// Output: 2, 4, 6, 8, 10
+
+21) What is a callback function?
+A callback function is a function passed as an argument to another function, and it is executed later when a task is completed.
+Why do we use callbacks?
+To handle asynchronous operations like:
+fetching data from APIs
+reading files
+timers (setTimeout, setInterval)
+event handling (click, submit, etc.)
+
+Example:
+function greet(name, callback) {
+  console.log("Hello " + name);
+  callback(); // calling the callback
+}
+function sayBye() {
+  console.log("Goodbye!");
+}
+greet("Deepika", sayBye);
+
+22) What are arrow functions, and how are they different from normal functions?
+
+Arrow functions were introduced in ES6 and provide a shorter, cleaner way to write functions in JavaScript.
+Arrow functions are a compact syntax for writing functions using =>
+Example:
+const add = (a, b) => a + b;
+
+Differences Between Arrow Functions and Normal Functions
+1. Arrow functions do NOT have their own this
+Normal functions have their own this value depending on how they are called.
+But arrow functions inherit this from their surrounding (lexical) scope
+
+Example:
+const person = {
+  name: "Deepika",
+  show: function() {
+    setTimeout(() => {
+      console.log(this.name); // arrow inherits 'this'
+    }, 1000);
+  }
+};
+
+person.show(); // Deepika
+
+23)What is the value of this inside an arrow function?
+
+Arrow functions do not have their own this.
+They take the this value from where they are defined.
+Example: Using arrow function
+var person = {
+  name: "Deepika",
+  show() {
+    setTimeout(() => {
+      console.log(this.name); 
+    }, 1000);
+  }
+};
+person.show(); // Deepika
+
+24) What is function currying?
+
+Currying means breaking a function with multiple parameters into smaller functions, 
+each taking one parameter, and returning another function until all parameters are received.
+Useful in functional programming
+Helps create highly reusable, configurable functions
+Avoids repeating code
+Example:
+Reuse functions (partial application)
+var multiply = a => b => a * b;
+var double = multiply(2);
+console.log(double(5)); // 10
+console.log(double(10)); // 20
+
+25) What is the difference between call, apply, and bind?
+
+call(): cals a function with a given this value and allows paasing argument one by obe, separated by commas.
+        It does not return a new function but executes the function immediately.
+apply(): apply is silimar to call, but it accept argument as an array.
+        It also does not return a new function but execute the function immediately.
+bind(): bind create a new function that when caaled has its this keyword set to the provided value.                
+
+Example:call()
+const person = {
+  name: "Alice",
+};
+function greet(age, city) {
+  console.log(`Hello, my name is ${this.name}. I am ${age} years old and live in ${city}.`);
+}
+greet.call(person, 30, "New York"); // Output: Hello, my name is Alice. I am 30 years old and live in New York.
+
+Example:apply()
+const person = {
+  name: "Deepika"
+};
+function intro(age, city) {
+  console.log(`Name: ${this.name}, Age: ${age}, City: ${city}`);
+}
+intro.apply(person, [25, "Delhi"]);
+Output:Name: Deepika, Age: 25, City: Delhi
+
+Example:bind()
+
+const person = {
+  name: "Deepika"
+};
+function intro(age, city) {
+  console.log(`Name: ${this.name}, Age: ${age}, City: ${city}`);
+}
+const newFunc = intro.bind(person, 25, "Delhi");
+newFunc();
+Output:Name: Deepika, Age: 25, City: Delhi
+
+26) How do you pass parameters by reference vs value?
+In JavaScript, primitive values are passed by value and objects/arrays/functions are passed by reference.
+
+1. Passed by Value
+Primitive data types are passed by value:
+Number, String, Boolean, null, undefined, Symbol
+This means a copy of the value is passed 
+Example:
+let a = 10;
+function change(x) {
+  x = 20;
+}
+change(a);
+console.log(a); // 10 (unchanged)
+
+2.Passed by Reference
+Non-primitive types (objects, arrays, functions) are passed by reference:
+Object, Array, Function
+Example:
+let obj = { name: "Deepika" };
+function change(o) {
+  o.name = "Rani";
+}
+change(obj);
+console.log(obj.name); // "Rani"
+
+27) What are default parameters in ES6?
+
+Default parameters in ES6 allow you to set a default value for a function parameter if no argument is passed or if the argument is undefined.
+Example:
+function greet(name = "Guest") {
+  console.log("Hello " + name);
+}
+greet();           // Hello Guest
+greet("Deepika");  // Hello Deepika
+
+Multiple Default Parameters
+function intro(name = "Unknown", age = 18) {
+  console.log(name, age);
+}
+intro();            // Unknown 18
+intro("Deepika");   // Deepika 18
+intro("Rani", 22);  // Rani 22
+
+28) What is recursion in JavaScript?
+
+Recursion is a programming technique where a function calls itself to solve a problem by breaking it down into smaller, 
+identical subproblems.
+Two important parts of recursion
+1)Base Case → stops the recursion
+2)Recursive Case → function calls itself
+Example:factorial
+function factorial(n) {
+  if (n === 1) return 1;          // Base case
+  return n * factorial(n - 1);    // Recursive case
+}
+console.log(factorial(5)); // 120
+
+29) What is the difference between function declaration and expression?
+i) Function Declaration
+A function declared using the function keyword with a name.
+Example:
+function add(a, b) {
+  return a + b;
+}
+Key Characteristics:
+Hoisted → can be used before it is defined.
+Loaded into memory at the start of execution.
+
+ii) Function Expression
+A function assigned to a variable (named or anonymous).
+Example: const add = function(a, b) {
+  return a + b;
+};
+Key Characteristics:
+Not hoisted (only variable is hoisted, value is NOT).
+You cannot call it before the line where it’s defined.
+Useful for callbacks.
+
+30) What is a generator function?
+A generator function in JavaScript is a special type of function that can pause and resume its execution.
+A generator function has a * (asterisk) after the function keyword:
+function* generatorFunction() {
+  // code
+}
+Example:
+function* numbers() {
+  yield 1;
+  yield 2;
+}
+const gen = numbers();
+console.log(gen.next()); // { value: 1, done: false }
+console.log(gen.next()); // { value: 2, done: false }
+console.log(gen.next()); // { value: undefined, done: true }

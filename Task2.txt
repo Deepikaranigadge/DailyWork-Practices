@@ -26,13 +26,6 @@ Data Types in JavaScript
 JavaScript data types are divided into two main categories:
 i)Primitive Data Types : Only one value can store in primitive data type. and its immutable. 
 means data type cannot be changed after user created.
-Example: object, array etc.
-Object	              { name: "Deepika", age: 22 }	Collection of key–value pairs
-Array	                [1, 2, 3]	                    Ordered list of values
-Function	            function greet(){}	          Block of code designed to perform a task
-
-ii)Non-Primitive Data Types: we can store multiple values in non-primitive data type. and its mutable.
-means data type can be Modified after user created.
 Example: string, number, boolean, null, undefined etc.
 String	        "Hello"	                Represents text data
 Number	        42, 3.14	              Represents both integers and floating-point numbers
@@ -40,6 +33,13 @@ Boolean	        true, false	            Represents logical values
 Undefined	      let x;	                A variable declared but not assigned any value
 Null	          let y = null;	          Represents intentional absence of a value
 Symbol (ES6)	  let id = Symbol("id");	Used for unique identifiers
+
+ii)Non-Primitive Data Types: we can store multiple values in non-primitive data type. and its mutable.
+means data type can be Modified after user created.
+Example: object, array etc.
+Object	              { name: "Deepika", age: 22 }	Collection of key–value pairs
+Array	                [1, 2, 3]	                    Ordered list of values
+Function	            function greet(){}	          Block of code designed to perform a task
 
 3) What is the difference between var, let, and const?
 
@@ -595,4 +595,5 @@ function* numbers() {
 const gen = numbers();
 console.log(gen.next()); // { value: 1, done: false }
 console.log(gen.next()); // { value: 2, done: false }
+
 console.log(gen.next()); // { value: undefined, done: true }

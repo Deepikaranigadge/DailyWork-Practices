@@ -1,0 +1,142 @@
+select * from Customers;
+output
+customer_id	first_name	last_name	            age	             country
+1		     John            Doe 	            31	               USA
+2		     Robert          Luna	            22	               USA
+3	         David	         Robinson	        22	               UK
+4	         John	         Reinhardt	        25	               UK
+5	         Betty	         Doe	            28	               UAE
+
+select * from Customers where country="USA";
+output
+customer_id	first_name	last_name	age	 country
+1	          John	      Doe	    31	  USA
+2	          Robert	  Luna	    22	  USA
+
+SELECT first_name, last_name FROM Customers;
+output
+first_name	last_name
+John	     Doe
+Robert	     Luna
+David	     Robinson
+John	     Reinhardt
+Betty	     Doe
+
+SELECT * FROM Customers
+ORDER BY age ASC;
+output
+customer_id	first_name	last_name	age	country
+2	          Robert	 Luna	     22	 USA
+3	          David	     Robinson	 22  UK
+4	          John	     Reinhardt	 25	 UK
+5	          Betty	     Doe	     28	 UAE
+1	          John	     Doe	     31	 USA
+
+SELECT * FROM Customers
+ORDER BY age DESC;
+Output
+customer_id	first_name	last_name	age	country
+1	         John	     Doe	    31	 USA
+5	         Betty	     Doe	    28	 UAE
+4	         John	     Reinhardt	25	 UK
+2	         Robert	     Luna	    22	 USA
+3	         David	     Robinson	22	 UK
+
+SELECT * FROM Customers
+WHERE age > 25;
+output
+customer_id	first_name	last_name	age	country
+1	         John	     Doe	     31	 USA
+5	         Betty	     Doe	     28	 UAE
+
+SELECT country, COUNT(*) AS total_customers
+FROM Customers
+GROUP BY country;
+output
+country	total_customers
+UAE	      1
+UK	      2
+USA	      2
+
+SELECT * FROM Customers
+WHERE last_name = 'Doe';
+output
+customer_id	first_name	last_name	age	country
+1	         John	      Doe	     31	 USA
+5	         Betty	      Doe	     28	 UAE
+
+SELECT * FROM Customers
+WHERE age BETWEEN 20 AND 30;
+output
+customer_id	first_name	last_name	age	country
+2	         Robert	     Luna	    22	 USA
+3	         David	     Robinson	22	 UK
+4	         John	     Reinhardt	25	 UK
+5	         Betty	     Doe	    28	 UAE
+
+
+SELECT DISTINCT country
+FROM Customers;
+output
+country
+USA
+UK
+UAE
+
+SELECT * FROM Customers
+WHERE country <> 'USA';
+output
+customer_id	first_name	last_name	age	country
+3	         David	     Robinson	22	 UK
+4	         John	     Reinhardt	25	 UK
+5	         Betty	     Doe	    28	 UAE
+
+
+SELECT * FROM Customers
+WHERE age = 22;
+output
+customer_id	first_name	last_name	age	country
+2	         Robert	     Luna	    22 	USA
+3	         David	     Robinson	22 	UK
+
+SELECT DISTINCT last_name FROM Customers;
+output
+last_name
+Doe
+Luna
+Robinson
+Reinhardt
+
+SELECT COUNT(*) FROM Customers;
+output
+COUNT(*)
+5
+
+SELECT MAX(age) AS max_age FROM Customers;
+output
+max_age
+31
+
+SELECT MIN(age) AS min_age FROM Customers;
+output
+min_age
+22
+
+SELECT AVG(age) AS avg_age FROM Customers;
+output
+avg_age
+25.6
+
+SELECT * FROM Customers
+WHERE last_name LIKE 'R%';
+output
+customer_id	first_name	last_name	age	country
+3             David	     Robinson	22	 UK
+4	          John	     Reinhardt	25	 UK
+
+SELECT * FROM Customers
+WHERE first_name LIKE '%n';
+output
+customer_id	first_name	last_name	age	country
+1	         John	     Doe	     31	 USA
+4	         John	     Reinhardt	 25	 UK

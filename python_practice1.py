@@ -64,6 +64,57 @@ full_name = first_name +" "+last_name
 print(full_name)
 #output:Virat kolhi
 
+# date 30/11/25
+
+numbers = {10, 20, 30}
+print(numbers)
+#output :{10, 20, 30}
+
+numbers = {10, 20, 30}
+numbers.add(40)
+print(numbers)
+#output: {40, 10, 20, 30}
+
+numbers = {10, 20, 30}
+numbers.update([50, 60])
+print(numbers)
+#output : {50, 20, 60, 10, 30}
+
+numbers = {10, 20, 30}
+numbers.remove(20)
+print(numbers)
+#output: {10, 30}
+
+a = {1, 2, 3}
+b = {3, 4, 5}
+print(a.union(b))
+#output: {1, 2, 3, 4, 5}
+
+a = {10, 20, 30}
+b = {20, 40}
+print(a.intersection(b))
+#output : {20}
+
+A = {1, 2, 3}
+B = {2, 3}
+print(A.difference(B))
+#output : {1}
+
+numbers = {10, 20, 30}
+print(20 in numbers)
+#output: True
+
+numbers = {10, 20, 30}
+for x in numbers:
+    print(x)
+#output : 10
+#20
+#30
+
+fruits = {"apple", "banana", "orange", "grapes", "mango"}
+print(fruits)
+#output: {'orange', 'banana', 'apple', 'mango', 'grapes'}
+
 
 
 

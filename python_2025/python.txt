@@ -1,0 +1,120 @@
+What is OOP in Python?===============================
+Object-Oriented Programming (OOP) is a way of structuring code using classes and objects to model real-world entities.
+
+Why do we need Classes and Objects
+i)Supports object-oriented programming using reusable templates (classes) and real-world models (objects).
+ii)Enables key OOP concepts like inheritance, encapsulation and polymorphism.
+It helps in:Modularity – Code is organized into reusable components.
+Reusability – Classes can be reused and extended.
+Maintainability – Easier to update and debug.
+Class and Object
+Class: ==Blueprint for creating objects. defined thier properties and method
+Object:== Instance of a class.
+Encapsulation:== bundling of data (attributes) and methods (functions) within a class, restricting access to some components to control interactions.
+Inheritance: == Allows a class to inherit properties and methods from another class.
+Polymorphism:== Same method name, different behavior depending on the object.
+Abstraction:== hide the internal implementation details of a class and expose only the necessary features to the outside.
+
+Using __init__() Function
+In Python, class has __init__() function which automatically initializes object attributes when an object is created.
+ The __init__() method is the constructor in Python.
+
+Self Parameter
+self parameter is a reference to the current instance of class. 
+It allows us to access the attributes and methods of the object.
+
+Method Overloading : Python does not support true method overloading (same method name with different parameter lists).
+If you define multiple methods with the same name, the last definition overrides the previous ones.
+
+Method Overriding : when a child class defines a method with the same name and parameters as a method in its parent class, replacing its behavior.
+
+The super() : function in Python is used to call methods from a parent (superclass) inside a child (subclass).
+You can still call the parent method using super().
+
+super().__init__() initializes the inherited attributes without rewriting the parent’s constructor.
+
+1)What is JSON===============================
+
+Use Case:1) It's lightweigth data format used for storing and exchanging data.
+2)Commonly used in API's and web application
+3)Data transfer between frontend & backend , mobileApp & Server
+4)Import/Export Data used for exporting and importing data between sysytems
+
+2)What is Decorator=============================
+
+Decorator is a function that adds extra feature before and after a function.
+without modifiying it's original code
+syntax: @decorator_name 
+Use Case:1)Logging = Track when a function starts and ends.
+2)Authorization = Used in Flask / Django to check login before accessing a page.
+3)Time Measurement = Used to measure how long a function takes to run.
+4)Retry logic = Automatically retry when function fails (network, API calls).
+
+3)What is lambda ================================
+ Lambda functions are small anonymous functions in Python.
+  It has single expressions and accepts multiples arguments.
+Use Case:1)To avoid writing full def functions
+2)Commonly used with map(), filter(), reduce(), sorting, and data processing.
+3)One - line function
+4)code becomes cleaner
+map() = applies a function (often lambda) to every element of an iterable and returns a new iterable.
+Example: result = list(map(lambda x: x * 2, [1, 2, 3, 4]))
+print(result)   # [2, 4, 6, 8]
+filter() = it keeps only the items that satisfy the condition.
+Example: result = list(filter(lambda x: x % 2 == 0, [1, 2, 3, 4, 5, 6]))
+print(result)   # [2, 4, 6]
+reduce() = it combines all items into single value
+Example: from functools import reduce
+result = reduce(lambda a, b: a + b, [1, 2, 3, 4])
+print(result)   # 10
+
+4)What is Clouser in python ==========================================
+A function inside another function(nested function)
+The inner function refence variable from the outer function.
+The outer function return the inner function
+Use case: 1)Decorators: Python decorators often rely on closures to modify or extend the behavior of functions.
+2)Creating stateful functions
+(e.g., counters, click trackers, API call counters)
+3)Data hiding / Encapsulation
+(store sensitive data like balance, tokens, config inside closure)
+
+5)What is the purpose of nonlocal in closures?===================================
+Used to modify outer function variables inside the inner function.
+
+6) Different between Module, framework, file, library, package=================
+1️⃣ File
+A file is simply a physical document on the system.
+In Python, a .py file containing code is treated as a script.
+Example: script.py, data.txt, config.json
+2️⃣ Module
+A module is a single Python file (.py) that contains functions, classes, or variables and can be imported.
+Example: math.py, os.py, re.py
+3️⃣ Package
+A package is a folder that contains multiple modules and has an __init__.py file.
+A library is a collection of packages and modules that provide reusable functionality.
+Examples: NumPy (math operations), Pandas (data analysis), Requests (API calls)
+5️⃣ Framework
+A framework is a large structure that provides a full environment and imposes rules for building applications.
+Examples: Django, Flask, FastAPI
+
+7)What is an Operator in Python? ====================================================
+
+An operator is a symbol that performs an operation on values or variables.
+Types of Operators in Python
+1️⃣ Arithmetic Operators :Addition,Subtraction,Multiplication,Division,Floor division,Modulus
+2️⃣Comparison (Relational) Operators = Used to compare values. Returns True/False.
+Equal to, Not equal, Greater than, Less than, Greater or equal, Less or equal
+3️⃣Logical Operators = Used to combine conditions.
+and	 = True if both are True , or	 = True if one is True , not = 	Reverses boolean
+4️⃣ Assignment Operators = Used to assign values.
+5️⃣ Bitwise Operators = AND, XOR, NOT, Left shift, Right shift
+6️⃣Identity Operators = Check if two objects refer to the same memory location
+7️⃣Membership Operators = Check for membership in sequences like lists, strings, or tuples
+
+What is Module in python ====================================
+
+A file contains Python definitions, functions, classes, and statements.
+1)Built in module = module that provide standard functionality like methemetical Operators, file i/o, etc.
+2)External Modules = modules that are installed via external package using tool like pip
+3)Custom Modules = create our own modules by saving python code in .py.  
+

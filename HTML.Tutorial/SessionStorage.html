@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+     <h3>Session Storage</h3>
+    <button onclick="saveToSession('city','New York')">Save to Seesion Storage</button>   
+    <button onclick="alert(getfromSession('city'))">get form Seesion Storage</button>
+    <button onclick="removefromSession('city')">remove from Seesion Storage</button>
+
+    <script>
+        function saveToSession(key, value){
+            sessionStorage.setItem(key, value);
+        }
+        function getfromSession(key){
+            return sessionStorage.getItem(key);
+        }
+        function removefromSession(key){
+            sessionStorage.removeItem(key);
+        }
+    </script>
+</body>
+</html>

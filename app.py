@@ -1,33 +1,45 @@
-from flask import Flask, render_template, request
+from flask import Flask, jsonify, request
+from flask_jwt_extended import (
+    JWTManager,
+    create_access_token,
+    jwt_required,
+    get_jwt_identity
+)
 
 app = Flask(__name__)
 
-@app.route("/")
-def home():
-    return render_template("home.html", user="Sachin")
 
-@app.route('/contact')
-def message_me():
-    return render_template('contact.html', email='supprot@itdefined.org', phone='+91 7676797274')
+app.config["JWT_SECRET_KEY"] = "super-secret-key"
 
-@app.route('/about')
-def about_me():
-    details ={
-        'email':'supprot@itdefined.org',
-        'phone':'+91 7676797274',
-        'courses':['MERN', 'Django','Develops','Embedded']
-    }
-    return render_template('about.html', details= details)
+jwt = JWTManager(app)
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    if request.method =="POST":
-        details= {"name": request.form.get('name'),
-                  "email":request.form.get('email'),
-                  "password": request.form.get('pwd')}
-        return details
-    else:
-        return render_template('register.html')
+
+USER = {
+    "username": "admin",
+    "password": "123"
+}
+
+
+@app.route("/login", methods=["POST"])
+def login():
+    data = request.get_json()
+
+    if (
+        data.get("username") == USER["username"]
+        and data.get("password") == USER["password"]
+    ):
+        token = create_access_token(identity=data["username"])
+        return jsonify(access_token=token)
+
+    return jsonify({"msg": "Wrong credentials"}), 401
+
+
+@app.route("/dashboard", methods=["GET"])
+@jwt_required()
+def dashboard():
+    user = get_jwt_identity()
+    return jsonify({"msg": f"Welcome {user}"})
+
 
 if __name__ == "__main__":
     app.run(debug=True)

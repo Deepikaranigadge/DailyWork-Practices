@@ -1,0 +1,152 @@
+//INNER JOIN (Match only common records)
+
+SELECT c.first_name, c.last_name, o.item, o.amount
+FROM Customers c
+INNER JOIN Orders o
+ON c.customer_id = o.customer_id;
+
+output
+first_name	last_name	item	   amount
+John	   Reinhardt	Keyboard	400
+John	   Reinhardt	Mouse	    300
+David	   Robinson	    Monitor	    12000
+John	   Doe	        Keyboard	400
+Robert	   Luna	        Mousepad	250
+
+//LEFT JOIN All customers and matching orders
+
+SELECT c.first_name, o.item, o.amount
+FROM Customers c
+LEFT JOIN Orders o
+ON c.customer_id = o.customer_id;
+
+output
+first_name	item	    amount
+John	    Keyboard	400
+Robert	    Mousepad	250
+David	    Monitor	    12000
+John	    Keyboard	400
+John	    Mouse	    300
+Betty       null        null
+Betty customer_id 5 will appear with NULL order.
+
+//RIGHT JOIN All orders + matching customers
+SELECT c.first_name, o.item, o.amount
+FROM Customers c
+RIGHT JOIN Orders o
+ON c.customer_id = o.customer_id;
+
+output
+first_name	item	   amount
+John	   Keyboard    400
+John	   Mouse	   300
+David	   Monitor	   12000
+John	   Keyboard	   400
+Robert	   Mousepad	   250
+
+//FULL OUTER JOIN 
+
+SELECT *
+FROM Customers c
+LEFT JOIN Orders o ON c.customer_id = o.customer_id
+UNION
+SELECT *
+FROM Customers c
+RIGHT JOIN Orders o ON c.customer_id = o.customer_id;
+
+output
+customer_id	first_name	last_name	age	country	order_id	item	 amount
+4	          John	    Reinhardt	25	  UK	  1	       Keyboard	  400
+4	          John	    Reinhardt	25	  UK	  2	       Mouse	  300
+3	          David	    Robinson	22	  UK	  3	       Monitor	  12000
+1	          John	    Doe	        31    USA	  4	       Keyboard	  400
+2	          Robert	Luna	    22	  USA	  5	       Mousepad	  250
+5	          Betty	    Doe	        28	  UAE	 NULL	   NULL    	  NULL
+
+//Customers Have NOT Placed Orders
+
+SELECT c.*
+FROM Customers c
+LEFT JOIN Orders o ON c.customer_id = o.customer_id
+WHERE o.order_id IS NULL;
+
+output
+customer_id	first_name	last_name	age	country
+5	        Betty	     Doe	    28	UAE
+
+//Count how many orders each customer placed
+SELECT c.first_name, COUNT(o.order_id) AS total_orders
+FROM Customers c
+LEFT JOIN Orders o ON c.customer_id = o.customer_id
+GROUP BY c.customer_id;
+
+output
+first_name	total_orders
+John       	1
+Robert	    1
+David	    1
+John	    2
+Betty	    0
+
+//Find customers who placed more than 1 order
+SELECT c.first_name, COUNT(o.order_id) AS total_orders
+FROM Customers c
+JOIN Orders o ON c.customer_id = o.customer_id
+GROUP BY c.customer_id
+HAVING total_orders > 1;
+
+output
+
+first_name	total_orders
+John	    2
+
+//Self Join Example Customers with same last name
+SELECT c1.first_name AS name1, c2.first_name AS name2, c1.last_name
+FROM Customers c1
+JOIN Customers c2 
+ON c1.last_name = c2.last_name 
+AND c1.customer_id != c2.customer_id;
+
+output
+name1	name2	last_name
+John	Betty	Doe
+Betty	John	Doe
+
+//Customers Who Bought “Keyboard”
+
+SELECT c.first_name, c.last_name
+FROM Customers c
+JOIN Orders o ON c.customer_id = o.customer_id
+WHERE o.item = 'Keyboard';
+
+output
+first_name	last_name
+John	    Reinhardt
+John	    Doe
+
+//Using subqueries --
+//Customers who placed at least one order
+
+SELECT *
+FROM Customers
+WHERE customer_id IN (
+    SELECT customer_id FROM Orders
+);
+
+output
+customer_id	first_name	last_name	age	    country
+1	        John     	Doe      	31	    USA
+2	        Robert   	Luna	    22	    USA
+3	        David       Robinson	22	    UK
+4	        John	    Reinhardt	25	    UK
+
+//Orders where customer age > average age
+
+SELECT o.*
+FROM Orders o
+JOIN Customers c ON o.customer_id = c.customer_id
+WHERE c.age > (SELECT AVG(age) FROM Customers);
+
+output
+order_id	item	   amount	customer_id
+4	        Keyboard	400	     1

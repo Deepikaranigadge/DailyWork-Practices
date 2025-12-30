@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Responsive Web Design Example</title>
+  <style>/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  line-height: 1.6;
+}
+
+/* Header */
+.header {
+  background: #0078d7;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.nav {
+  display: inline;
+  margin-left: 60%;
+ /* display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 10px;*/
+}
+
+.nav a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+}
+
+.nav a:hover {
+  background: #005fa3;
+  border-radius: 5px;
+}
+
+/* Hero Section */
+.hero {
+  background: #f0f0f0;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+/* Content Cards */
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 40px 20px;
+}
+
+.card {
+  background: white;
+  border-radius: 10px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  flex: 1 1 250px;
+  max-width: 300px;
+}
+
+/* Footer */
+.footer {
+  background: #222;
+  color: white;
+  text-align: center;
+  padding: 15px;
+}
+
+/* Responsive Design Breakpoints */
+
+/* Tablets */
+@media (max-width: 768px) {
+  .nav {
+    flex-direction: column;
+  }
+
+  .content {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* Mobile Phones */
+@media (max-width: 480px) {
+  .hero h2 {
+    font-size: 1.5rem;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 90%;
+  }
+
+  .nav a {
+    display: block;
+    padding: 15px;
+  }
+}
+</style>
+</head>
+<body>
+  <header class="header">
+    <h1>My Responsive Website</h1>
+    <nav class="nav">
+      <a href="#">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Welcome!</h2>
+    <p>This page adjusts beautifully on any screen size.</p>
+  </section>
+
+  <section class="content">
+    <div class="card">📱 Mobile Friendly</div>
+    <div class="card">💻 Tablet Ready</div>
+    <div class="card">🖥️ Desktop Optimized</div>
+  </section>
+
+  <footer class="footer">
+    <p>© 2025 My Responsive Web Design Demo</p>
+  </footer>
+</body>
+</html>

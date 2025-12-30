@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS Concepts Cards</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #84a6d9;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    .card-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .card {
+      background: #fff;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      padding: 20px;
+      width: 200px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+
+    .card h2 {
+      font-size: 18px;
+      color: #007bff;
+      margin-bottom: 10px;
+    }
+
+    #codeBox {
+      margin-top: 30px;
+      background: #272822;
+      color: #f8f8f2;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: left;
+      display: none;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      white-space: pre-wrap;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>JavaScript Concepts</h1>
+
+  <div class="card-container">
+    <div class="card" onclick="showCode('promises')">
+      <h2>Promises</h2>
+    </div>
+
+    <div class="card" onclick="showCode('callback')">
+      <h2>Callback</h2>
+    </div>
+
+    <div class="card" onclick="showCode('eventLoop')">
+      <h2>Event Loop</h2>
+    </div>
+
+    <div class="card" onclick="showCode('asyncAwait')">
+      <h2>Async & Await</h2>
+    </div>
+  </div>
+
+  <div id="codeBox"></div>
+
+  <script>
+    const codeExamples = {
+      promises: `
+let promise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve("Promise resolved after 2 seconds");
+  }, 2000);
+});
+
+promise
+  .then(res => console.log(res))
+  .catch(err => console.log(err));
+      `,
+
+      callback: `
+function fetchData(callback) {
+  setTimeout(() => {
+    console.log("Data fetched");
+    callback();
+  }, 2000);
+}
+
+function processData() {
+  console.log("Processing data...");
+}
+
+fetchData(processData);
+      `,
+
+      eventLoop: `
+console.log("Start");
+
+setTimeout(() => console.log("Timeout"), 0);
+
+Promise.resolve().then(() => console.log("Promise resolved"));
+
+console.log("End");
+      `,
+
+      asyncAwait: `
+async function fetchData() {
+  console.log("Fetching data...");
+  let promise = new Promise((resolve) => {
+    setTimeout(() => resolve("Data loaded"), 2000);
+  });
+
+  let result = await promise;
+  console.log(result);
+}
+
+fetchData();
+      `
+    };
+
+    function showCode(type) {
+      const codeBox = document.getElementById('codeBox');
+      const code = codeExamples[type];
+      
+      codeBox.textContent = code.trim();
+      codeBox.style.display = "block";
+
+      // Store in localStorage and sessionStorage
+      localStorage.setItem("selectedCode", code);
+      sessionStorage.setItem("selectedCode", code);
+
+      console.log("Saved to Local & Session Storage");
+    }
+
+    // Optional: load from storage on refresh
+    window.onload = () => {
+      const savedCode = localStorage.getItem("selectedCode");
+      if (savedCode) {
+        const codeBox = document.getElementById('codeBox');
+        codeBox.textContent = savedCode;
+        codeBox.style.display = "block";
+      }
+    };
+  </script>
+</body>
+</html>

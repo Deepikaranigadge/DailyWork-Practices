@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flip Cards - Show Code Outside</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial;}
+
+body {
+  background:#eef2f7;
+  padding:20px;
+  text-align:center;
+}
+
+h1 { margin-bottom:25px; }
+
+.container {
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:20px;
+  margin-bottom:30px;
+}
+
+.card {
+  width:200px;
+  height:230px;
+  perspective:1000px;
+  cursor:pointer;
+}
+
+.inner {
+  width:100%;
+  height:100%;
+  position:relative;
+  transition:transform .8s;
+  transform-style:preserve-3d;
+}
+
+.card.flip .inner {
+  transform:rotateY(180deg);
+}
+
+.front, .back {
+  width:100%;
+  height:100%;
+  position:absolute;
+  border-radius:10px;
+  backface-visibility:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:18px;
+  font-weight:bold;
+  box-shadow:0 4px 8px rgba(0,0,0,0.1);
+}
+
+.front { background:#ffffff; }
+
+.back { 
+  background:#272822; 
+  color:#00eaff;
+  transform:rotateY(180deg);
+}
+
+/* Code box outside card */
+#codeBox {
+  width:90%;
+  max-width:750px;
+  background:#1e1e1e;
+  color:white;
+  padding:15px;
+  border-radius:8px;
+  margin:auto;
+  text-align:left;
+  white-space:pre-wrap;
+  display:none;
+  box-shadow:0 4px 8px rgba(0,0,0,0.2);
+}
+</style>
+</head>
+<body>
+
+<h1>JavaScript Concept Cards</h1>
+
+<div class="container">
+
+  <div class="card" data-type="promises">
+    <div class="inner">
+      <div class="front"></div>
+      <div class="back">Promises</div>
+    </div>
+  </div>
+
+  <div class="card" data-type="callback">
+    <div class="inner">
+      <div class="front"></div>
+      <div class="back">Callback</div>
+    </div>
+  </div>
+
+  <div class="card" data-type="eventLoop">
+    <div class="inner">
+      <div class="front"></div>
+      <div class="back">Event Loop</div>
+    </div>
+  </div>
+
+  <div class="card" data-type="asyncAwait">
+    <div class="inner">
+      <div class="front"></div>
+      <div class="back">Async & Await</div>
+    </div>
+  </div>
+
+</div>
+
+<pre id="codeBox"></pre>
+
+<script>
+const code = {
+promises: `
+let promise = new Promise((resolve) => {
+  setTimeout(() => resolve("✅ Promise resolved"), 2000);
+});
+
+promise.then(res => console.log(res));
+`,
+callback: `
+function fetchData(callback) {
+  setTimeout(() => {
+    console.log("Data loaded");
+    callback();
+  }, 2000);
+}
+
+function done(){
+  console.log("Completed");
+}
+
+fetchData(done);
+`,
+eventLoop: `
+console.log("Start");
+
+setTimeout(()=> console.log("Timeout"), 0);
+
+Promise.resolve().then(() => console.log("Promise"));
+
+console.log("End");
+`,
+asyncAwait: `
+async function loadData(){
+  let data = await new Promise((res)=> setTimeout(() => res("✅ Data Done"), 2000));
+  console.log(data);
+}
+loadData();
+`
+};
+
+const cards = document.querySelectorAll(".card");
+const codeBox = document.getElementById("codeBox");
+let openedCard = null;
+let clickCount = 0;
+
+cards.forEach(card => {
+  card.addEventListener("click", () => {
+
+    if (openedCard && openedCard !== card) {
+      openedCard.classList.remove("flip");
+      codeBox.style.display = "none";
+      clickCount = 0;
+    }
+
+    openedCard = card;
+    clickCount++;
+
+    card.classList.add("flip");
+
+    const type = card.dataset.type;
+
+    if (clickCount === 2) {
+      codeBox.textContent = code[type];
+      codeBox.style.display = "block";
+
+      localStorage.setItem("selectedCode", code[type]);
+      sessionStorage.setItem("selectedCode", code[type]);
+
+      clickCount = 0;
+    }
+  });
+});
+</script>
+
+</body>
+</html>

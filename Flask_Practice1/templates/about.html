@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>About Us</h1>
+
+<h4>You can reach us on the below details</h4>
+<p>Phone: {{ details.phone }}</p>
+<p>Email: {{ details.email }}</p>
+
+<h4>Courses ITD offer</h4>
+<ul>
+    {% for course in details.courses %}
+        <li>{{ course }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

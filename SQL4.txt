@@ -1,0 +1,152 @@
+// INNER Join
+
+SELECT 
+    c.customer_id,
+    c.first_name,
+    c.last_name,
+    s.shipping_id,
+    s.status
+FROM Customers c
+INNER JOIN Shipping s
+ON c.customer_id = s.customer;
+
+output
+customer_id	first_name	last_name	shipping_id	 status
+2	         Robert	     Luna	    1	         Pending
+4	         John	     Reinhardt	2	         Pending
+3	         David	     Robinson	3	         Delivered
+5	         Betty	     Doe	    4	         Pending
+1	         John	     Doe	    5	         Delivered
+
+//LEFT JOIN:
+Show all customers and their shipping status
+
+SELECT 
+    c.customer_id,
+    c.first_name,
+    c.last_name,
+    s.shipping_id,
+    s.status
+FROM Customers c
+LEFT JOIN Shipping s
+ON c.customer_id = s.customer;
+
+output
+customer_id	first_name	last_name	shipping_id	 status
+1	          John	    Doe       	5	         Delivered
+2	          Robert	Luna	    1	         Pending
+3	          David	    Robinson	3	         Delivered
+4	          John    	Reinhardt	2	         Pending
+5	          Betty  	Doe	        4	         Pending 
+
+//Count how many shipments each customer
+
+SELECT 
+    c.first_name,
+    COUNT(s.shipping_id) AS total_shipments
+FROM Customers c
+LEFT JOIN Shipping s
+ON c.customer_id = s.customer
+GROUP BY c.customer_id;
+
+output
+
+first_name	total_shipments
+John	    1
+Robert    	1
+David	    1
+John	    1
+Betty	    1
+
+//Show customers sorted by shipping status
+
+SELECT 
+    c.first_name,
+    c.country,
+    s.status
+FROM Customers c
+JOIN Shipping s
+ON c.customer_id = s.customer
+ORDER BY s.status;
+
+output
+
+first_name	country	 status
+David	    UK	     Delivered
+John	    USA	     Delivered
+Robert	    USA	     Pending
+John	    UK	     Pending
+Betty	    UAE	     Pending
+
+//List distinct shipping statuses with customer names
+
+SELECT DISTINCT s.status
+FROM Customers c
+JOIN Shipping s
+ON c.customer_id = s.customer;
+
+output
+
+status
+Pending
+Delivered
+
+//Get customers whose shipment status is NOT delivered
+
+SELECT first_name, last_name, status
+FROM Customers c
+JOIN Shippings s ON c.customer_id = s.customer
+WHERE s.status != 'Delivered';
+
+output
+
+first_name	last_name	status
+Robert	    Luna	    Pending
+John	    Reinhardt	Pending
+Betty	    Doe	        Pending
+
+//List customer name with shipping ID sorted by customer name
+
+SELECT first_name, last_name, shipping_id
+FROM Customers c
+JOIN Shipping s ON c.customer_id = s.customer
+ORDER BY first_name;
+
+output
+
+first_name	last_name	shipping_id
+Betty	    Doe	        4
+David	    Robinson	3
+John	    Reinhardt	2
+John	    Doe	        5
+Robert	    Luna	    1
+
+//Find customers who have at least one shipping record - Subqueries
+
+SELECT *
+FROM Customers
+WHERE customer_id IN (SELECT customer FROM Shipping);
+output
+
+customer_id	first_name	last_name	age	country
+1	John	Doe	31	USA
+2	Robert	Luna	22	USA
+3	David	Robinson	22	UK
+4	John	Reinhardt	25	UK
+5	Betty	Doe	28	UAE
+
+//Get details of the latest shipping
+
+SELECT *
+FROM Shipping
+WHERE shipping_id = (SELECT MAX(shipping_id) FROM Shipping);
+
+output
+
+shipping_id	status	    customer
+5	        Delivered	1
+
+
+
+
+

@@ -1,0 +1,233 @@
+//Find customers having same age
+SELECT age, COUNT(*) AS people
+FROM Customers
+GROUP BY age
+HAVING COUNT(*) > 1;
+
+output
+age	people
+22	2
+
+//Find the youngest customer
+SELECT * FROM Customers
+ORDER BY age ASC
+LIMIT 1;
+
+output
+customer_id	first_name	last_name	age	 country
+2	          Robert	 Luna	     22  	USA
+
+//Find the oldest customer
+
+SELECT * FROM Customers
+ORDER BY age DESC
+LIMIT 1;
+
+output
+customer_id	first_name	last_name	age	country
+1	          John	     Doe	    31	  USA
+
+//Rename column using AS (alias)
+
+SELECT first_name AS fname, last_name AS lname FROM Customers;
+
+output
+fname	lname
+John	Doe
+Robert	Luna
+David	Robinson
+John	Reinhardt
+Betty	Doe
+
+// customers from USA or UK OR operator
+
+SELECT * FROM Customers
+WHERE country = 'USA' OR country = 'UK';
+output
+customer_id	first_name	last_name	age	country
+1	        John	     Doe	    31	USA
+2	        Robert	     Luna	    22	USA
+3	        David	     Robinson	22	UK
+4        	John	     Reinhardt	25	UK
+
+// customers not from USA NOT operator
+
+SELECT * FROM Customers
+WHERE country <> 'USA';
+
+output
+customer_id	first_name	last_name	age	country
+3	        David	    Robinson	22	UK
+4	        John	    Reinhardt	25	UK
+5	        Betty	     Doe	    28	UAE
+
+//Find maximum and minimum age
+
+SELECT MAX(age) AS max_age, MIN(age) AS min_age
+FROM Customers;
+
+output
+
+max_age	min_age
+31	    22
+
+//Count customers whose name is John
+
+SELECT COUNT(*) FROM Customers
+WHERE first_name = 'John';
+
+output
+COUNT(*)
+2
+
+// customers whose first name is repeated
+
+SELECT first_name, COUNT(*)
+FROM Customers
+GROUP BY first_name
+HAVING COUNT(*) > 1;
+
+output
+first_name	COUNT(*)
+John	     2
+
+//customers from countries other than USA or UK
+
+SELECT * FROM Customers
+WHERE country NOT IN ('USA', 'UK');
+
+output
+customer_id	first_name	last_name	age	 country
+5	        Betty	     Doe	    28	 UAE
+
+//Convert country names to lowercase
+
+SELECT lower(country) AS lower_country_country
+FROM Customers;
+
+output
+lower_country
+usa
+usa
+uk
+uk
+uae
+
+//customers sorted by last name then age descending
+
+SELECT *
+FROM Customers
+ORDER BY last_name ASC, age DESC;
+
+output
+customer_id	first_name	last_name	age	country
+1	        John	     Doe	    31	USA
+5	        Betty	     Doe	    28	UAE
+2	        Robert	     Luna	    22	USA
+4	        John	     Reinhardt	25	UK
+3        	David	     Robinson	22	UK
+
+
+//customers but rename columns aliasing
+SELECT 
+  customer_id AS id,
+  first_name AS fname,
+  last_name AS lname,
+  age AS years,
+  country AS nation
+FROM Customers;
+
+output
+id	fname	lname	   years	nation
+1	John	Doe	        31   	USA
+2	Robert	Luna	    22   	USA
+3	David	Robinson	22   	UK
+4	John	Reinhardt	25 	    UK
+5	Betty	Doe	        28	    UAE
+
+//customers whose age is greater than the average age
+
+SELECT * 
+FROM Customers
+WHERE age > (SELECT AVG(age) FROM Customers);
+
+output
+customer_id	first_name	last_name	age	 country
+1	        John	     Doe	     31	 USA
+5	        Betty	     Doe	     28	 UAE
+
+//the oldest customer using a subquery
+
+SELECT *
+FROM Customers
+WHERE age = (SELECT MAX(age) FROM Customers);
+
+output
+customer_id	first_name	last_name	age	 country
+1	         John	    Doe	        31	 USA
+
+//customers from countries with more than 1 customer
+
+SELECT *
+FROM Customers
+WHERE country IN (
+    SELECT country
+    FROM Customers
+    GROUP BY country
+    HAVING COUNT(*) > 1
+);
+
+output
+customer_id	first_name	last_name	age	country
+1	        John	     Doe	    31	 USA
+2	        Robert	     Luna	    22	 USA
+3	        David	     Robinson	22	 UK
+4	        John	     Reinhardt	25	 UK
+
+//List distinct countries.
+
+SELECT DISTINCT country FROM Customers;
+
+output
+country
+USA
+UK
+UAE
+
+//customers between age 20 and 30.
+
+SELECT * FROM Customers
+WHERE age BETWEEN 20 AND 30;
+
+output
+
+customer_id	first_name	last_name	age	country
+2	        Robert	     Luna	    22	USA
+3	        David	     Robinson	22	UK
+4	        John         Reinhardt	25	UK
+5	        Betty	     Doe	    28	UAE
+
+//customers whose last name is not ‘Doe’.
+
+SELECT * FROM Customers
+WHERE last_name <> 'Doe';
+
+output
+customer_id	first_name	last_name	age	country
+2	       Robert	    Luna	    22	USA
+3	       David	    Robinson	22	UK
+4	       John	        Reinhardt	25	UK
+
+//Delete customer with ID = 3.
+
+DELETE FROM Customers
+WHERE customer_id = 3;
+
+output
+
+customer_id	first_name	last_name	age	 country
+1	        John	    Doe     	31	  USA
+2	        Robert	    Luna	    22	  USA
+4	        John	    Reinhardt	25	  UK
+5	        Betty	    Doe	        28	  UAE
+

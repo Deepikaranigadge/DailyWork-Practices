@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+<body style="min-height: 120vh;">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <div class="d-flex">
+                <a class="navbar-brand" href="/">Navbar</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=
+                      <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+
+
+            <div>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="/products/">Produts</a>
+                        </li>
+
+                        {% if request.user.is_authenticated %}
+                           <li class="nav=item">
+                               <a class="nav-link" href="/cart/">
+                                   Cart <span id="cart-count" class="badge bg-danger">0</span>
+                               </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="/orders/">Orders</a>
+                            </li>
+                               <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="/profile/">Profile</a>
+                            </li>
+                             <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="/logout/">Logout</a>
+                            </li>
+                            {% else %}
+                             <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="/login/">Login</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+         {% block content %}
+
+         
+         {% endlock content %}
+
+         <script>
+            document.addEventListener("DOMContentLoaded", function(){
+                const addToCartButtons = document.querySelectorAll(".add-to-cart-btn");
+                const cartCountElement = document.getElementById("cart-count");
+
+                //Function to fetch the current cart count
+                function updateCartCount(){
+                    fetch('/cart/count/', {
+                        method:"GET",
+                        headers:{
+                            "Content-Type":"application/json",
+                        },
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success){
+                            cartCountElement.textContent = data.cart_count;
+                        }
+                        })
+                        .catch(error => console.error("Error featching cart count:", error));
+                    }
+
+                    //Add to cart functionality
+                    addToCartButtons.forEach(button =>{
+                        button.addEventListener("click", function (e){
+                            e.preventDefault();
+                            const productId = this.getAttribute("data-product-id");
+
+                             fetch(`/add-to-cart/${productId}/`, {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "X-CSRFToken": getCookie("csrftoken"),
+                                },
+                                 body: JSON.stringify({ quantity:1 }),
+                            })
+                           .then(response => response.json())
+                           .then(data => {
+                            if (data.is_authenticated){
+                                if (data.success){
+                                alert(data.message);
+                                updateCartCount();
+                                }else{
+                                    alert(data.message);
+                            }else{
+                        //Redirect to login if the user is not request.user.is_authenticated
+                        window.location.href = "/login/";
+                    }
+                })
+                .cart(error => console.error("Error adding to cart:", error));
+            });
+
+            //CSRF token helper function
+            function getCookie(name){
+                let cookieValue = null;
+                if (document.cookie && document.cookie !==""){
+                    const cookie = cookie[i].trim();
+                    if (cookie.startsWith(name + "=")){
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;                        
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        if (document.getElementById('cart-count')){
+            updateCartCount();
+        }
+    });
+</script>
+</body>
+</html>

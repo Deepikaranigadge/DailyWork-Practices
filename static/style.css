@@ -1,0 +1,75 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f2f2f2;
+}
+
+/* Center the box */
+.container {
+    width: 420px;
+    margin: 100px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+}
+
+/* Center only heading & form */
+h1,
+.add-form {
+    text-align: center;
+}
+
+/* Add form */
+.add-form {
+    margin-bottom: 20px;
+}
+
+input {
+    padding: 8px;
+    width: 65%;
+}
+
+button {
+    padding: 8px 12px;
+}
+
+/* Remove bullets */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+/* Each todo row */
+.todo-item {
+    display: flex;
+    justify-content: space-between;  /* LEFT & RIGHT FIX */
+    align-items: center;
+    padding: 10px;
+    margin-top: 10px;
+    background: #f9f9f9;
+    border-radius: 5px;
+}
+
+/* LEFT side text */
+.task-text {
+    text-align: left;
+    font-size: 16px;
+}
+
+/* RIGHT side actions */
+.actions {
+    text-align: right;
+}
+
+.actions a {
+    margin-left: 10px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.edit {
+    color: #007bff;
+}
+
+.delete {
+    color: red;
+}
